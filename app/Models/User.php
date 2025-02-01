@@ -17,6 +17,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    public $timestamps = false;
     protected $fillable = [
         'name',
         'email',
@@ -45,4 +46,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function review()
+    {
+        return $this->hasMany(reviews::class, 'user_id');
+    }
+
+    public function profile(){
+        return $this->hasOne(Profile::class);
+      }
 }

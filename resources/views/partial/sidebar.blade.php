@@ -13,7 +13,12 @@
           <img src="{{asset('template/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          @auth
+          <a href="#" class="d-block">{{Auth::user()->name}}</a>
+          @endauth
+          @guest
+          <a href="#" class="d-block">Belum Login</a>
+          @endguest
         </div>
       </div>
 
@@ -52,18 +57,45 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../../index.html" class="nav-link">
+                <a href="/genre" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Biodata</p>
+                  <p>Genre</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../../index2.html" class="nav-link">
+                <a href="/film" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Data Table</p>
+                  <p>Film</p>
                 </a>
               </li>
             </ul>
+
+            @guest
+            <li class="nav-item bg-info">
+              <a href="/login" class="nav-link">
+                <p>Login</p>
+              </a>
+            </li>
+            @endguest
+
+            @auth
+            <li class="nav-item">
+                <a href="/profile" class="nav-link">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>Profile</p>
+                </a>
+              </li>
+
+            <li class="nav-item bg-danger">
+              <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                Logout
+              </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+              </form>
+            </li>
+            @endauth
+            
           </li>
         </ul>
       </nav>
